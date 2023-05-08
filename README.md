@@ -1,4 +1,5 @@
 ## Computer Core «APOLLO»
+<a href="https://codeclimate.com/github/THEBESTol0ch/APOLLO-Core-Bot/maintainability"><img src="https://api.codeclimate.com/v1/badges/62fd269da878db639510/maintainability" /></a>
 
 ## Description:
 ```
