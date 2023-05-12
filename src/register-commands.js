@@ -134,6 +134,10 @@ const commands = [
             },
         ]
     },
+    {
+        name: "a_server_info",
+        description: "Shows server info.",
+    },
 ];
 
 const rest = new REST({ version: "10" }).setToken(process.env.TOKEN);

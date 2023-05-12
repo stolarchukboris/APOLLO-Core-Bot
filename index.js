@@ -5,6 +5,7 @@ const changePresence = require("./src/presence.js")
 const onProfile = require("./src/profile-command.js")
 const onMonthlyReport = require("./src/monthly-report-command.js")
 const onMessageDelete = require("./src/message-delete.js");
+const onServerInfo = require("./src/server-info-command.js");
 const getRandomInt = require("./src/random-integer.js");
 
 function changePresenceLoop() {
@@ -113,5 +114,10 @@ client.on("interactionCreate", (interaction) => {
         if (question == "Laboratory D Category?") {
             interaction.reply("Laboratory D Category - useless developments, for example - washing machine 2.0.");
         }
+    }
+    if (interaction.commandName == "a_server_info") {
+        onServerInfo(interaction);
+        const guild = interaction.guild
+        guild.id
     }
 });
