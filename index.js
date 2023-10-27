@@ -45,6 +45,7 @@ client.on("messageDelete", message => {
 client.on("interactionCreate", (interaction) => {
     if (!interaction.isChatInputCommand()) return;
 
+    console.log(interaction);
     if (interaction.commandName == "a_hey") {
         interaction.reply("hey!");
     }

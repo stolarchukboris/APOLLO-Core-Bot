@@ -1,7 +1,7 @@
 const { ActivityType } = require("discord.js");
 const competingArray = [{name: "with RTX 4090"}, {name: "with raiders"}, {name: "with best core games"}, {name: "with Black Mesa"}, {name: "with Aperture Science"}];
 const listeningArray = [{name: "Facility Intercom"}, {name: "Surface"}, {name: "Facility Alarms"}, {name: "employee complaints"}];
-const playingArray = [{name: "«CCARF»"}, {name: "«CCARF» - Test Server"}, {name: "Chainsaw Man - Warehouse"}, {name: "Roblox Studio"}, {name: "with 263 friends"}];
+const playingArray = [{name: "«CCARF»"}, {name: "«CCARF» - Test Server"}, {name: "Chainsaw Man - Warehouse"}, {name: "Roblox Studio"}, {name: "with 366 friends"}];
 const streamingArray = [{name: "«CCARF»", url: ""}];
 const watchingArray = [{name: "1 servers"}, {name: "security cameras"}, {name: "«APOLLO» Corp. YouTube Channel"}, {name: "raider plans"}];
 
