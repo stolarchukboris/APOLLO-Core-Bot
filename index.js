@@ -27,7 +27,7 @@ console.log("POWERING ON");
 client.login(process.env.TOKEN);
 client.on("ready", (c) => {
     console.log("ONLINE");
-    changePresenceLoop();  
+    changePresenceLoop();
 })
 
 client.on("messageCreate", (message) => {
@@ -39,7 +39,7 @@ client.on("messageCreate", (message) => {
 });
 
 client.on("messageDelete", message => {
-    onMessageDelete(message,  client);
+    onMessageDelete(message, client);
 });
 
 client.on("interactionCreate", (interaction) => {

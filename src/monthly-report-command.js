@@ -1,4 +1,3 @@
-require("dotenv").config();
 const sendEmbedAnswer = require("./operation-answer.js");
 const { EmbedBuilder } = require("discord.js");
 
