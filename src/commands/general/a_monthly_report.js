@@ -8,7 +8,6 @@ export async function execute(interaction) {
     await interaction.deferReply();
     
     if (interaction.user.id !== process.env.OWNER_ID) return await interaction.editReply({
-        flags: 'Ephemeral',
         embeds: [
             new EmbedBuilder()
                 .setColor('Red')
@@ -28,7 +27,6 @@ export async function execute(interaction) {
     });
 
     await interaction.editReply({
-        flags: 'Ephemeral',
         embeds: [
             new EmbedBuilder()
                 .setColor('Green')

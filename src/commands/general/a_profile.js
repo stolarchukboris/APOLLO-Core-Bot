@@ -8,7 +8,6 @@ export async function execute(interaction) {
     await interaction.deferReply();
     
     await interaction.editReply({
-        flags: 'Ephemeral',
         embeds: [
             new EmbedBuilder()
                 .setColor("Random")

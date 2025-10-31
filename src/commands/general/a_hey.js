@@ -7,5 +7,5 @@ export const data = new SlashCommandBuilder()
 export async function execute(interaction) {
     await interaction.deferReply();
     
-    await interaction.editReply({ content: 'Hey!', flags: 'Ephemeral' });
+    await interaction.editReply({ content: 'Hey!' });
 }

@@ -36,5 +36,5 @@ export async function execute(interaction) {
     
     const question = interaction.options.getString('question');
     
-    await interaction.editReply({ content: qna[question], flags: 'Ephemeral' });
+    await interaction.editReply({ content: qna[question] });
 }
