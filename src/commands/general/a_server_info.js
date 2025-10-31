@@ -1,4 +1,4 @@
-import { SlashCommandBuilder } from 'discord.js';
+import { SlashCommandBuilder, EmbedBuilder } from 'discord.js';
 
 export const data = new SlashCommandBuilder()
     .setName('a_server_info')
@@ -24,12 +24,12 @@ export async function execute(interaction) {
                 .setThumbnail(process.env.APOLLO_CORP_IMAGE_LINK)
                 .addFields(
                     { name: "Server Owner", value: `<@${guild.ownerId}>`, inline: true },
-                    { name: "Date Created", value: `<t:${guild.createdTimestamp / 1000}:R> (hover for full date)`, inline: true },
-                    { name: "Server Members", value: guild.memberCount, inline: true },
-                    { name: "Role Number", value: guild.roles.cache.size, inline: true },
-                    { name: "Emoji Number", value: guild.emojis.cache.size, inline: true },
+                    { name: "Date Created", value: `<t:${Math.floor(guild.createdTimestamp / 1000)}:R> (hover for full date)`, inline: true },
+                    { name: "Server Members", value: `${guild.memberCount}`, inline: true },
+                    { name: "Role Number", value: `${guild.roles.cache.size}`, inline: true },
+                    { name: "Emoji Number", value: `${guild.emojis.cache.size}`, inline: true },
                     { name: "Verification Level", value: verificationLevels[guild.verificationLevel], inline: true },
-                    { name: "Server Boosts", value: guild.premiumSubscriptionCount, inline: true },
+                    { name: "Server Boosts", value: `${guild.premiumSubscriptionCount}`, inline: true },
                 )
                 .setTimestamp()
                 .setFooter({ text: `Server ID: ${guild.id}` })

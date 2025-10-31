@@ -30,7 +30,7 @@ export async function execute(interaction) {
     
     const num1 = interaction.options.getNumber("first_number", true);
     const op = interaction.options.getString("operator", true);
-    const num2 = interaction.options.get("second_number", true);
+    const num2 = interaction.options.getNumber("second_number", true);
 
-    await interaction.editReply({ message: `Result: ${eval(num1 + op + num2)}`, flags: 'Ephemeral' });
+    await interaction.editReply({ content: `Result: ${eval(num1 + op + num2)}`, flags: 'Ephemeral' });
 }

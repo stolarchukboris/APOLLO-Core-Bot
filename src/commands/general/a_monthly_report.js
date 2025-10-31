@@ -1,4 +1,4 @@
-import { SlashCommandBuilder } from 'discord.js';
+import { SlashCommandBuilder, EmbedBuilder } from 'discord.js';
 
 export const data = new SlashCommandBuilder()
     .setName('a_monthly_report')
@@ -17,7 +17,7 @@ export async function execute(interaction) {
         ]
     });
 
-    await client.channels.cache.get(process.env.ANNOUNCEMENTS_CHANNEL_ID).send({
+    await interaction.client.channels.cache.get(process.env.ANNOUNCEMENTS_CHANNEL_ID).send({
         embeds: [
             new EmbedBuilder()
                 .setTitle("Monthly Report")
