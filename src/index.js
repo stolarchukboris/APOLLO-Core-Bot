@@ -43,4 +43,6 @@ for (const file of eventFiles) {
     }
 }
 
+if (process.argv.includes('--nologin')) process.exit(0);
+
 client.login(process.env.TOKEN);
