@@ -44,7 +44,7 @@ jobs:
       - name: Test script run
         run: |
             pnpm run deploy
-            if [ $? -ne 143 ]; then
+            if [ $? -ne 777 ]; then
                 exit 1
             fi
             pnpm run test
