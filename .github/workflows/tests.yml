@@ -43,7 +43,8 @@ jobs:
         run: pnpm install
       - name: Test script run
         run: |
-            set -e
             pnpm run deploy
-            echo $?
+            if [ $? -ne 143 ]; then
+                exit 1
+            fi
             pnpm run test
