@@ -33,6 +33,7 @@ jobs:
         run: |
             touch .env
             echo TOKEN=${{ secrets.TOKEN }} >> .env
+            echo CLIENT_ID=${{ secrets.CLIENT_ID }} >> .env
       - name: Use Node.js 20
         uses: actions/setup-node@v4
         with:
