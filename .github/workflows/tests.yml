@@ -45,7 +45,8 @@ jobs:
         run: |
             pnpm run deploy
             echo $?
-            if [ $? -ne 2 ]; then
+            if [ $? -eq 2 ]; then
+                pnpm run test
+            else
                 exit 1
             fi
-            pnpm run test
