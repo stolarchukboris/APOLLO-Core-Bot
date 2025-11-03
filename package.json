@@ -2,10 +2,20 @@
   "name": "cca",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "deploy": "node src/deploy-commands.js",
+    "start": "pm2 start src/index.js --name \"APOLLO Core Bot\"",
+    "deploy-start": "pnpm run \"/deploy$|^start$/\"",
+    "start:log": "pnpm run start && pm2 logs",
+    "deploy-start:log": "pnpm run deploy-start && pm2 logs",
+    "restart": "pm2 restart src/index.js",
+    "deploy-restart": "pnpm run \"/deploy$|^restart$/\"",
+    "restart:log": "pnpm run restart && pm2 logs",
+    "deploy-restart:log": "pnpm run deploy-restart && pm2 logs",
+    "stop": "pm2 delete src/index.js",
+    "test": "pnpm run deploy-start && pm2 delete src/index.js && echo Test passed."
   },
   "keywords": [],
   "author": "THE_BESTol0ch",
