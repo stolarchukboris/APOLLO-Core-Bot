@@ -42,12 +42,4 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: Test script run
-        run: |
-            pnpm run deploy
-            echo $?
-            if [ $? -eq 2 ]; then
-                pnpm run test
-            else
-                exit 1
-            fi
-        continue-on-error: true
+        run: pnpm run test
