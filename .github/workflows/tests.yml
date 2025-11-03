@@ -45,4 +45,5 @@ jobs:
         run: |
             set -e
             pnpm run deploy
+            echo $?
             pnpm run test
