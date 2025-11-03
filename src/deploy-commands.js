@@ -44,7 +44,7 @@ const rest = new REST().setToken(process.env.TOKEN);
 
         console.log(`Successfully reloaded ${data.length} application (/) commands.`);
 
-        process.exit(256); // ts is for the pipeline
+        process.exit(2); // ts is for the pipeline
     } catch (error) {
         // And of course, make sure you catch and log any errors!
         console.error(error);

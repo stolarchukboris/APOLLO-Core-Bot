@@ -45,7 +45,7 @@ jobs:
         run: |
             pnpm run deploy
             echo $?
-            if [ $? -ne 256 ]; then
+            if [ $? -ne 2 ]; then
                 exit 1
             fi
             pnpm run test
