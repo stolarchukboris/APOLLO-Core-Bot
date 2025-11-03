@@ -43,6 +43,9 @@ for (const file of eventFiles) {
     }
 }
 
-if (process.argv.includes('--nologin')) process.exit(0);
+if (process.argv.includes('--nologin')) {
+    console.log('Workflow test passed. Shutting down.');
+    process.exit(0);
+}
 
 client.login(process.env.TOKEN);

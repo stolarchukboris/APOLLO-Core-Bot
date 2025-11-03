@@ -15,7 +15,7 @@
     "restart:log": "pnpm run restart && pm2 logs",
     "deploy-restart:log": "pnpm run deploy-restart && pm2 logs",
     "stop": "pm2 delete src/index.js",
-    "test": "pnpm run deploy && node . --nologin && echo Test passed."
+    "test": "pnpm run deploy && node . --nologin"
   },
   "keywords": [],
   "author": "THE_BESTol0ch",
