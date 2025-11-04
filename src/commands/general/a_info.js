@@ -1,5 +1,6 @@
 import { execSync } from 'child_process';
 import { EmbedBuilder, SlashCommandBuilder } from 'discord.js';
+import ms from 'ms';
 
 export const data = new SlashCommandBuilder()
     .setName('a_info')
@@ -27,7 +28,7 @@ Credit for the original bot idea goes to [THEBESTol0ch](https://github.com/THEBE
 [
     Instance username: ${interaction.client.user.username}#${interaction.client.user.discriminator}
     Instance ID: ${interaction.client.user.id}
-    Instance uptime: ${Math.floor(interaction.client.uptime / 1000)} seconds
+    Instance uptime: ${ms(interaction.client.uptime, { long: true })}
     Instance RAM usage: ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} Megabytes
 ]\`\`\`
 \`\`\`yml
