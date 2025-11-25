@@ -42,7 +42,7 @@ for (const file of eventFiles) {
 }
 
 if (process.argv.includes('--nologin')) {
-    console.log('Workflow test passed. Shutting down.');
+    console.log('[CI] Workflow test passed. Shutting down.');
     process.exit(0);
 }
 
