@@ -4,8 +4,6 @@ import { Client, Collection, GatewayIntentBits } from 'discord.js';
 import dotenv from 'dotenv';
 const __dirname = import.meta.dirname;
 
-dotenv.config();
-
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMembers] });
 
 client.commands = new Collection();
@@ -47,5 +45,7 @@ if (process.argv.includes('--nologin')) {
     console.log('Workflow test passed. Shutting down.');
     process.exit(0);
 }
+
+dotenv.config();
 
 client.login(process.env.TOKEN);

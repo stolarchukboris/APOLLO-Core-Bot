@@ -4,8 +4,6 @@ import { join } from 'node:path';
 import dotenv from 'dotenv';
 const __dirname = import.meta.dirname;
 
-dotenv.config();
-
 const commands = [];
 // Grab all the command folders from the commands directory you created earlier
 const foldersPath = join(__dirname, 'commands');
@@ -27,6 +25,14 @@ for (const folder of commandFolders) {
         }
     }
 }
+
+if (process.argv.includes('--nologin')) {
+    console.log('[CI] Commands parsed successfully.');
+
+    process.exit();
+}
+
+dotenv.config();
 
 // Construct and prepare an instance of the REST module.
 const rest = new REST().setToken(process.env.TOKEN);
