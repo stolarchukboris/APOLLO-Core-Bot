@@ -1,6 +1,7 @@
 import { execSync } from 'child_process';
 import { ChatInputCommandInteraction, EmbedBuilder, SlashCommandBuilder } from 'discord.js';
 import ms from 'ms';
+import bot from '../../index.js';
 
 export const data = new SlashCommandBuilder()
     .setName('a_info')
@@ -8,14 +9,6 @@ export const data = new SlashCommandBuilder()
 
 export async function execute(interaction: ChatInputCommandInteraction) {
     await interaction.deferReply();
-
-    function checkCommit() {
-        try {
-            return execSync('git rev-parse HEAD', { windowsHide: true }).toString().trim();
-        } catch (_) {
-            return '-';
-        }
-    }
 
     await interaction.editReply({
         embeds: [
@@ -32,7 +25,7 @@ Credit for the original bot idea goes to [THEBESTol0ch](https://github.com/THEBE
     Instance RAM usage: ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} Megabytes
 ]\`\`\`
 \`\`\`yml
-Git commit: ${checkCommit()}
+Git commit: ${bot.commit ?? '-'}
 \`\`\``)
                 .setTimestamp()
                 .setFooter({ text: '"APOLLO" Core Bot' })

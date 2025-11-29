@@ -2,12 +2,14 @@ import { readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { Client, Collection, GatewayIntentBits, REST, SlashCommandBuilder, Routes, RESTPutAPIApplicationCommandsResult, ChatInputCommandInteraction } from 'discord.js';
 import { config } from 'dotenv';
+import { execSync } from 'node:child_process';
 const __dirname = import.meta.dirname;
 
 class Bot extends Client {
     commands: Collection<string, { data: SlashCommandBuilder, execute(interaction: ChatInputCommandInteraction): Promise<void> }> = new Collection();
     apiCommands: SlashCommandBuilder[] = [];
     env = config({ quiet: true }).parsed || {};
+    commit: string | null;
 
     async initCommands() {
         const foldersPath = join(__dirname, 'commands');
@@ -82,6 +84,14 @@ class Bot extends Client {
         super({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMembers] });
 
         this.initCommands().then(_ => this.loadEvents());
+
+        try {
+            this.commit = execSync('git rev-parse HEAD', { windowsHide: true })
+                .toString()
+                .trim();
+        } catch (_) {
+            this.commit = null;
+        }
 
         this.login(this.env.TOKEN);
     }
