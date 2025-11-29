@@ -1,15 +1,16 @@
 import { readdirSync } from 'node:fs';
 import { join } from 'node:path';
-import { Client, Collection, GatewayIntentBits, REST, SlashCommandBuilder, Routes, RESTPutAPIApplicationCommandsResult } from 'discord.js';
+import { Client, Collection, GatewayIntentBits, REST, SlashCommandBuilder, Routes, RESTPutAPIApplicationCommandsResult, ChatInputCommandInteraction } from 'discord.js';
 import { config } from 'dotenv';
 const __dirname = import.meta.dirname;
 
 class Bot extends Client {
-    commands: Collection<string, any> = new Collection();
+    commands: Collection<string, { data: SlashCommandBuilder, execute(interaction: ChatInputCommandInteraction): Promise<void> }> = new Collection();
     apiCommands: SlashCommandBuilder[] = [];
-    env = config().parsed || {};
+    env = config({ quiet: true }).parsed || {};
 
     async initCommands() {
+        console.log('c');
         const foldersPath = join(__dirname, 'commands');
         const commandFolders = readdirSync(foldersPath);
 
@@ -23,6 +24,7 @@ class Bot extends Client {
 
                 if ('data' in command && 'execute' in command) {
                     this.commands.set(command.data.name, command);
+                    console.log('d');
 
                     if (!process.argv.includes('--deploy')) continue;
 
@@ -55,6 +57,7 @@ class Bot extends Client {
         }
 
         console.log('Commands initialized successfully.');
+        console.log(this.commands);
     }
 
     async loadEvents() {
@@ -78,7 +81,9 @@ class Bot extends Client {
     constructor() {
         super({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMembers] });
 
+        console.log('a');
         this.initCommands().then(_ => this.loadEvents());
+        console.log('b');
 
         if (process.argv.includes('--nologin')) {
             console.log('[CI] Workflow test passed. Shutting down.');
