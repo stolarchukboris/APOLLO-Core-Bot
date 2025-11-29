@@ -1,11 +1,12 @@
-import { Events, MessageFlags } from 'discord.js';
+import { Events, Interaction, MessageFlags } from 'discord.js';
+import bot from '../index.js';
 
 export const name = Events.InteractionCreate;
 
-export async function execute(interaction) {
+export async function execute(interaction: Interaction) {
     if (!interaction.isChatInputCommand()) return;
 
-    const command = interaction.client.commands.get(interaction.commandName);
+    const command = bot.commands.get(interaction.commandName);
 
     if (!command) return console.log(`No command matching ${interaction.commandName} was found.`);
 

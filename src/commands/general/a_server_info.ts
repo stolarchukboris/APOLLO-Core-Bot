@@ -1,13 +1,13 @@
-import { SlashCommandBuilder, EmbedBuilder } from 'discord.js';
+import { SlashCommandBuilder, EmbedBuilder, ChatInputCommandInteraction, Guild } from 'discord.js';
 
 export const data = new SlashCommandBuilder()
     .setName('a_server_info')
     .setDescription('View information about this server.');
 
-export async function execute(interaction) {
+export async function execute(interaction: ChatInputCommandInteraction) {
     await interaction.deferReply();
     
-    const guild = interaction.guild;
+    const guild = interaction.guild as Guild;
     const verificationLevels = {
         0: 'None',
         1: 'Low',
@@ -20,8 +20,8 @@ export async function execute(interaction) {
         embeds: [
             new EmbedBuilder()
                 .setColor("White")
-                .setAuthor({ name: guild.name, iconURL: guild.iconURL() })
-                .setThumbnail(process.env.APOLLO_CORP_IMAGE_LINK)
+                .setAuthor({ name: guild.name, iconURL: guild.iconURL() || undefined })
+                .setThumbnail(process.env.APOLLO_CORP_IMAGE_LINK || null)
                 .addFields(
                     { name: "Server Owner", value: `<@${guild.ownerId}>`, inline: true },
                     { name: "Date Created", value: `<t:${Math.floor(guild.createdTimestamp / 1000)}:R> (hover for full date)`, inline: true },

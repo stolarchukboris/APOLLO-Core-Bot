@@ -1,10 +1,10 @@
-import { SlashCommandBuilder, EmbedBuilder } from 'discord.js';
+import { SlashCommandBuilder, EmbedBuilder, ChatInputCommandInteraction, GuildMember } from 'discord.js';
 
 export const data = new SlashCommandBuilder()
     .setName('a_profile')
     .setDescription('Display your Discord profile.');
 
-export async function execute(interaction) {
+export async function execute(interaction: ChatInputCommandInteraction) {
     await interaction.deferReply();
     
     await interaction.editReply({
@@ -16,7 +16,7 @@ export async function execute(interaction) {
                 .addFields(
                     { name: "Discord ID", value: interaction.user.id },
                     { name: "Account creation date", value: interaction.user.createdAt.toLocaleDateString(), inline: true },
-                    { name: "Server login date", value: interaction.member.joinedAt.toLocaleDateString(), inline: true }
+                    { name: "Server login date", value: (interaction.member as GuildMember).joinedAt?.toLocaleDateString() ?? '-', inline: true }
                 )
         ]
     });

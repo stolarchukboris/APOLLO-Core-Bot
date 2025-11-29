@@ -1,10 +1,11 @@
 import { Events, ActivityType } from 'discord.js';
+import bot from '../index.js';
 
 export const name = Events.ClientReady;
 export const once = true;
 
-export async function execute(client) {
-    console.log(`Ready! Logged in as ${client.user.tag}`);
+export async function execute() {
+    console.log(`Ready! Logged in as ${bot.user?.tag}`);
 
     const activities = {
         [ActivityType.Competing]: [
@@ -52,17 +53,17 @@ export async function execute(client) {
         "https://www.youtube.com/watch?v=RZdmV-b8PSU",
     ];
 
-    function randomItem(arr) {
-        return arr[Math.floor(Math.random() * arr.length)];
-    }
+    // function randomItem(arr: any) {
+    //     return arr[Math.floor(Math.random() * arr.length)];
+    // }
     
-    while (true) {
-        const type = randomItem(Object.keys(activities));
-        const name = randomItem(activities[type]);
-        const url = type === ActivityType.Streaming ? randomItem(videoArray) : undefined;
+    // while (true) {
+    //     const type: any[] = randomItem(Object.keys(activities));
+    //     const name = randomItem(activities[type]);
+    //     const url = type === ActivityType.Streaming ? randomItem(videoArray) : undefined;
 
-        await client.user.setActivity({ name: name, type: Number(type), url: url });
+    //     await client.user.setActivity({ name: name, type: Number(type), url: url });
 
-        await new Promise(resolve => setTimeout(resolve, Math.random() * 300_000));
-    }
+    //     await new Promise(resolve => setTimeout(resolve, Math.random() * 300_000));
+    // }
 }

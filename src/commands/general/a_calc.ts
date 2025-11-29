@@ -1,4 +1,4 @@
-import { SlashCommandBuilder } from 'discord.js';
+import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 
 export const data = new SlashCommandBuilder()
     .setName('a_calc')
@@ -25,7 +25,7 @@ export const data = new SlashCommandBuilder()
         .setRequired(true)
     );
 
-export async function execute(interaction) {
+export async function execute(interaction: ChatInputCommandInteraction) {
     await interaction.deferReply();
     
     const num1 = interaction.options.getNumber("first_number", true);

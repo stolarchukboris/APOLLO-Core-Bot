@@ -1,12 +1,12 @@
 import { execSync } from 'child_process';
-import { EmbedBuilder, SlashCommandBuilder } from 'discord.js';
+import { ChatInputCommandInteraction, EmbedBuilder, SlashCommandBuilder } from 'discord.js';
 import ms from 'ms';
 
 export const data = new SlashCommandBuilder()
     .setName('a_info')
     .setDescription('Know more about the bot.');
 
-export async function execute(interaction) {
+export async function execute(interaction: ChatInputCommandInteraction) {
     await interaction.deferReply();
 
     function checkCommit() {

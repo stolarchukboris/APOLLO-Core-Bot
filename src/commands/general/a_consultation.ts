@@ -1,4 +1,4 @@
-import { SlashCommandBuilder } from 'discord.js';
+import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 
 const qna = {
     "What are you?": "Computer Core «APOLLO» - Supercomputer that manages all the systems of this and other «APOLLO» corporation facilities.",
@@ -16,8 +16,9 @@ const qna = {
     "Laboratory B Category?": "Laboratory B Category - weapons developments.",
     "Laboratory C Category?": "Laboratory C Category - research anomalies nature.",
     "Laboratory D Category?": "Laboratory D Category - useless developments, for example - washing machine 2.0."
-};
-const choices = [];
+} as const;
+
+const choices: { name: string, value: string }[] = [];
 
 for (const question of Object.keys(qna)) choices.push({ name: question, value: question });
 
@@ -31,10 +32,10 @@ export const data = new SlashCommandBuilder()
         .setRequired(true)
     );
 
-export async function execute(interaction) {
+export async function execute(interaction: ChatInputCommandInteraction) {
     await interaction.deferReply();
     
-    const question = interaction.options.getString('question');
+    const question = interaction.options.getString('question', true) as keyof typeof qna;
     
     await interaction.editReply({ content: qna[question] });
 }

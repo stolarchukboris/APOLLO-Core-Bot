@@ -1,10 +1,10 @@
-import { SlashCommandBuilder, EmbedBuilder } from 'discord.js';
+import { SlashCommandBuilder, EmbedBuilder, ChatInputCommandInteraction, TextChannel } from 'discord.js';
 
 export const data = new SlashCommandBuilder()
     .setName('a_monthly_report')
     .setDescription('[OWNER] Publish monthly project statistics.');
 
-export async function execute(interaction) {
+export async function execute(interaction: ChatInputCommandInteraction) {
     await interaction.deferReply();
     
     if (interaction.user.id !== process.env.OWNER_ID) return await interaction.editReply({
@@ -16,12 +16,21 @@ export async function execute(interaction) {
         ]
     });
 
-    await interaction.client.channels.cache.get(process.env.ANNOUNCEMENTS_CHANNEL_ID).send({
+    if (!process.env.ANNOUNCEMENTS_CHANNEL_ID) return await interaction.editReply({
+        embeds: [
+            new EmbedBuilder()
+                .setColor('Red')
+                .setTitle('__*NEGATIVE*__')
+                .setDescription('ANNOUNCEMENTS CHANNEL HAS NOT BEEN CONFIGURED IN THE BOT\'S ENVIRONMENT.')
+        ]
+    });
+
+    await (interaction.client.channels.cache.get(process.env.ANNOUNCEMENTS_CHANNEL_ID) as TextChannel).send({
         embeds: [
             new EmbedBuilder()
                 .setTitle("Monthly Report")
                 .setColor("White")
-                .setImage(process.env.MONTHLY_REPORT_IMAGE_LINK)
+                .setImage(process.env.MONTHLY_REPORT_IMAGE_LINK || null)
                 .setTimestamp()
         ]
     });
