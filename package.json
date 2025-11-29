@@ -12,7 +12,7 @@
     "restart": "tsc && pnpm run processRestart",
     "deploy-restart": "tsc && pnpm run processRestart -- --deploy",
     "stop": "pm2 delete build/src/index.js",
-    "test": "tsc && node . --deploy --nologin"
+    "test": "tsc && node . --nologin"
   },
   "keywords": [],
   "author": "THE_BESTol0ch",
