@@ -10,7 +10,6 @@ class Bot extends Client {
     env = config({ quiet: true }).parsed || {};
 
     async initCommands() {
-        console.log('c');
         const foldersPath = join(__dirname, 'commands');
         const commandFolders = readdirSync(foldersPath);
 
@@ -24,7 +23,6 @@ class Bot extends Client {
 
                 if ('data' in command && 'execute' in command) {
                     this.commands.set(command.data.name, command);
-                    console.log('d');
 
                     if (!process.argv.includes('--deploy')) continue;
 
@@ -57,7 +55,6 @@ class Bot extends Client {
         }
 
         console.log('Commands initialized successfully.');
-        console.log(this.commands);
     }
 
     async loadEvents() {
@@ -76,19 +73,17 @@ class Bot extends Client {
         }
 
         console.log('Events loaded successfully.');
-    }
-
-    constructor() {
-        super({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMembers] });
-
-        console.log('a');
-        this.initCommands().then(_ => this.loadEvents());
-        console.log('b');
 
         if (process.argv.includes('--nologin')) {
             console.log('[CI] Workflow test passed. Shutting down.');
             process.exit(0);
         }
+    }
+
+    constructor() {
+        super({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMembers] });
+
+        this.initCommands().then(_ => this.loadEvents());
 
         this.login(this.env.TOKEN);
     }
