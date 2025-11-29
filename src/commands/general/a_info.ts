@@ -1,4 +1,3 @@
-import { execSync } from 'child_process';
 import { ChatInputCommandInteraction, EmbedBuilder, SlashCommandBuilder } from 'discord.js';
 import ms from 'ms';
 import bot from '../../index.js';
