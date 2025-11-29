@@ -39,7 +39,6 @@ class Bot extends Client {
             try {
                 console.log(`Started refreshing ${this.apiCommands.length} application (/) commands.`);
 
-                // The put method is used to fully refresh all commands in the guild with the current set
                 const data = await rest.put(
                     Routes.applicationCommands(this.env.CLIENT_ID),
                     { body: this.apiCommands }
@@ -47,10 +46,9 @@ class Bot extends Client {
 
                 console.log(`Successfully reloaded ${data.length} application (/) commands.`);
             } catch (error) {
-                // And of course, make sure you catch and log any errors!
                 console.error(error);
 
-                process.exit(1); // ts is for the pipeline
+                process.exit(1);
             }
         }
 
