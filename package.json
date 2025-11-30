@@ -5,7 +5,7 @@
   "main": "build/src/index.js",
   "type": "module",
   "scripts": {
-    "build": "rd build /s /q && tsc",
+    "build": "rmdir build /s /q && tsc",
     "processStart": "pm2 start build/src/index.js --name \"APOLLO Core Bot\"",
     "processRestart": "pnpm run stop && pnpm run processStart",
     "start": "pnpm run build && pnpm run processStart && pm2 logs",
