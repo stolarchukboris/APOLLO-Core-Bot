@@ -1,26 +1,24 @@
 import { readdirSync } from 'node:fs';
 import { join } from 'node:path';
-import { Client, Collection, GatewayIntentBits, REST, SlashCommandBuilder, Routes, RESTPutAPIApplicationCommandsResult, ChatInputCommandInteraction } from 'discord.js';
+import { Client, Collection, GatewayIntentBits, REST, SlashCommandBuilder, SlashCommandSubcommandBuilder, Routes, RESTPutAPIApplicationCommandsResult, ChatInputCommandInteraction } from 'discord.js';
 import { config } from 'dotenv';
 import { execSync } from 'node:child_process';
 const __dirname = import.meta.dirname;
 
 class Bot extends Client {
     commands: Collection<string, { data: SlashCommandBuilder, execute(interaction: ChatInputCommandInteraction): Promise<void> }> = new Collection();
+    subcommands: Collection<string, { data: SlashCommandSubcommandBuilder, execute(interaction: ChatInputCommandInteraction): Promise<void> }> = new Collection();
     apiCommands: SlashCommandBuilder[] = [];
     env = config({ quiet: true }).parsed || {};
     commit: string | null;
 
     async initCommands() {
         const foldersPath = join(__dirname, 'commands');
-        const commandFolders = readdirSync(foldersPath);
+        const items = readdirSync(foldersPath);
 
-        for (const folder of commandFolders) {
-            const commandsPath = join(foldersPath, folder);
-            const commandFiles = readdirSync(commandsPath).filter(file => file.endsWith('.js'));
-
-            for (const file of commandFiles) {
-                const filePath = join(commandsPath, file);
+        for (const item of items) { // for each item in commands folder
+            if (item.endsWith('.js')) { // if a child is a js file
+                const filePath = join(foldersPath, item);
                 const command = (await import(`file://${filePath}`));
 
                 if ('data' in command && 'execute' in command) {
@@ -29,9 +27,27 @@ class Bot extends Client {
                     if (!process.argv.includes('--deploy')) continue;
 
                     this.apiCommands.push(command.data.toJSON());
-                } else {
-                    console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
+                } else console.warn(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
+            } else { // otherwise, if it's a folder
+                const command = new SlashCommandBuilder().setName(item).setDescription(item); // make a command with folder name
+                const path = join(foldersPath, item);
+                const files = readdirSync(path); // grab all subcommands from that folder
+
+                for (const file of files) { // for each subcommand file
+                    const subcommand = (await import(`file://${join(path, file)}`));
+
+                    if ('data' in subcommand && 'execute' in subcommand) {
+                        command.addSubcommand(subcommand.data);
+
+                        this.subcommands.set(subcommand.data.name, subcommand);
+                    } else console.warn(`[WARNING] The subcommand at ${path} is missing a required "data" or "execute" property.`);
                 }
+
+                this.commands.set(command.name, { data: command, execute: () => Promise.resolve(undefined) });
+
+                if (!process.argv.includes('--deploy')) continue;
+
+                this.apiCommands.push(command);
             }
         }
 

@@ -1,6 +1,6 @@
 import { ChatInputCommandInteraction, EmbedBuilder, SlashCommandBuilder } from 'discord.js';
 import ms from 'ms';
-import bot from '../../index.js';
+import bot from '../index.js';
 
 export const data = new SlashCommandBuilder()
     .setName('a_info')

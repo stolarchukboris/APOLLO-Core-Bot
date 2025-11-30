@@ -1,6 +1,6 @@
-import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+import { ChatInputCommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js';
 
-export const data = new SlashCommandBuilder()
+export const data = new SlashCommandSubcommandBuilder()
     .setName('a_calc')
     .setDescription('Execute math operations.')
     .addNumberOption(option => option

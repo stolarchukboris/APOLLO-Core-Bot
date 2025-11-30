@@ -5,14 +5,15 @@
   "main": "build/src/index.js",
   "type": "module",
   "scripts": {
-    "processStart": "pm2 start build/src/index.js --name \"APOLLO Core Bot\" && pm2 logs",
-    "processRestart": "pm2 restart build/src/index.js && pm2 logs",
-    "start": "tsc && pnpm run processStart",
-    "deploy-start": "tsc && pnpm run process -- --deploy",
-    "restart": "tsc && pnpm run processRestart",
-    "deploy-restart": "tsc && pnpm run processRestart -- --deploy",
+    "build": "rd build /s /q && tsc",
+    "processStart": "pm2 start build/src/index.js --name \"APOLLO Core Bot\"",
+    "processRestart": "pnpm run stop && pnpm run processStart",
+    "start": "pnpm run build && pnpm run processStart && pm2 logs",
+    "deploy-start": "pnpm run build && pnpm run processStart -- --deploy && pm2 logs",
+    "restart": "pnpm run build && pnpm run processRestart && pm2 logs",
+    "deploy-restart": "pnpm run build && pnpm run processRestart -- --deploy && pm2 logs",
     "stop": "pm2 delete build/src/index.js",
-    "test": "tsc && node . --nologin"
+    "test": "pnpm run build && node . --nologin"
   },
   "keywords": [],
   "author": "THE_BESTol0ch",

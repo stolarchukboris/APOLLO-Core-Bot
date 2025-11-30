@@ -11,7 +11,15 @@ export async function execute(interaction: Interaction) {
     if (!command) return console.log(`No command matching ${interaction.commandName} was found.`);
 
     try {
-        await command.execute(interaction);
+        const subcommandOption = interaction.options.getSubcommand();
+
+        if (subcommandOption) {
+            const subcommand = bot.subcommands.get(subcommandOption);
+
+            if (!subcommand) return console.log(`No subcommand matching ${interaction.commandName} was found.`);
+
+            await subcommand.execute(interaction);
+        } else await command.execute(interaction);
     } catch (error) {
         console.log(error);
 
