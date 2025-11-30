@@ -5,7 +5,8 @@
   "main": "build/src/index.js",
   "type": "module",
   "scripts": {
-    "build": "rmdir build /s /q && tsc",
+    "build:ci": "rm -rf build && tsc",
+    "build": "rd build /s /q 2>nul && tsc",
     "processStart": "pm2 start build/src/index.js --name \"APOLLO Core Bot\"",
     "processRestart": "pnpm run stop && pnpm run processStart",
     "start": "pnpm run build && pnpm run processStart && pm2 logs",
@@ -13,6 +14,7 @@
     "restart": "pnpm run build && pnpm run processRestart && pm2 logs",
     "deploy-restart": "pnpm run build && pnpm run processRestart -- --deploy && pm2 logs",
     "stop": "pm2 delete build/src/index.js",
+    "test:ci": "pnpm run build:ci && node . --nologin",
     "test": "pnpm run build && node . --nologin"
   },
   "keywords": [],
